@@ -1,0 +1,64 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-md-11"><h3><%= application.user.first_name %> <%= application.user.last_name %></h3></div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-3 text-primary"><h5>Title</h5></div>
+            <div class="col-md-8"><h5><%= application.user.title.titleize %></h5></div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-md-3 text-primary"><h5>First name</h5></div>
+            <div class="col-md-8"><h5><%= application.user.first_name %></h5></div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-md-3 text-primary"><h5>Last name</h5></div>
+            <div class="col-md-8"><h5><%= application.user.last_name %></h5></div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-md-3 text-primary"><h5>Email</h5></div>
+            <div class="col-md-8"><h5><%= application.user.email %></h5></div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-md-3 text-primary"><h5>Gender</h5></div>
+            <div class="col-md-8"><h5><%= application.user.gender.titleize %></h5></div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-md-3 text-primary"><h5>Date of birth</h5></div>
+            <div class="col-md-8"><h5><%= application.user.birthdate %></h5></div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-md-3 text-primary"><h5>Address</h5></div>
+            <div class="col-md-8"><h5><%= application.user.address %></h5></div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-md-3 text-primary"><h5>Phone number</h5></div>
+            <div class="col-md-8"><h5><%= application.user.phone %></h5></div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-md-3 text-primary"><h5>Nationality</h5></div>
+            <div class="col-md-8"><h5><%= application.user.nationality.titleize %></h5></div>
+          </div>
+          <hr>
+          <div class="row">
+            <div class="col-md-3 text-primary"><h5>NRIC / Passport</h5></div>
+            <div class="col-md-8"><h5><%= application.user.nric_passport %></h5></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

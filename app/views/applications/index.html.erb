@@ -1,0 +1,157 @@
+<div class="container mt-3">
+  <div class="row">
+    <div class="element1 col-md-3">
+      <h3>Your Applications</h3>
+    </div>
+  </div>
+  <input class="form-control" id="search-input" type="text" placeholder="Search..">
+  <br>
+  <ul class="list-group" id="list-informathon">
+    <% if @applications.empty? %>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card text-center">
+              <div class="card-body">
+                <h5 class="card-title">No applications found</h5>
+                <p class="card-text">You have not made any applications to a course</p>
+                <p class="card-text">You can search for available courses on the courses page</p>
+                <%= link_to 'Available Courses', courses_path, method: :get, class: "btn btn-outline-primary"%>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% else %>
+      <% @applications.each do |application| %>
+        <div class="modal fade" id="modal<%= application.id %>" tabindex="0" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document" style="max-width: 50%">
+            <div class="modal-content">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="card">
+                    <div class="card-header">
+                      <div class="row">
+                        <div class="col-md-11"><h3><%= application.user.first_name %> <%= application.user.last_name %></h3></div>
+                      </div>
+                    </div>
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-md-3 text-primary"><h5>Title</h5></div>
+                        <div class="col-md-8"><h5><%= application.user.title.titleize %></h5></div>
+                      </div>
+                      <hr>
+                      <div class="row">
+                        <div class="col-md-3 text-primary"><h5>First name</h5></div>
+                        <div class="col-md-8"><h5><%= application.user.first_name %></h5></div>
+                      </div>
+                      <hr>
+                      <div class="row">
+                        <div class="col-md-3 text-primary"><h5>Last name</h5></div>
+                        <div class="col-md-8"><h5><%= application.user.last_name %></h5></div>
+                      </div>
+                      <hr>
+                      <div class="row">
+                        <div class="col-md-3 text-primary"><h5>Email</h5></div>
+                        <div class="col-md-8"><h5><%= application.user.email %></h5></div>
+                      </div>
+                      <hr>
+                      <div class="row">
+                        <div class="col-md-3 text-primary"><h5>Gender</h5></div>
+                        <div class="col-md-8"><h5><%= application.user.gender.titleize %></h5></div>
+                      </div>
+                      <hr>
+                      <div class="row">
+                        <div class="col-md-3 text-primary"><h5>Date of birth</h5></div>
+                        <div class="col-md-8"><h5><%= application.user.birthdate.strftime("%d/%m/%Y") %></h5></div>
+                      </div>
+                      <hr>
+                      <div class="row">
+                        <div class="col-md-3 text-primary"><h5>Address</h5></div>
+                        <div class="col-md-8"><h5><%= application.user.address %></h5></div>
+                      </div>
+                      <hr>
+                      <div class="row">
+                        <div class="col-md-3 text-primary"><h5>Phone number</h5></div>
+                        <div class="col-md-8"><h5><%= application.user.phone %></h5></div>
+                      </div>
+                      <hr>
+                      <div class="row">
+                        <div class="col-md-3 text-primary"><h5>Nationality</h5></div>
+                        <div class="col-md-8"><h5><%= application.user.nationality.titleize %></h5></div>
+                      </div>
+                      <hr>
+                      <div class="row">
+                        <div class="col-md-3 text-primary"><h5>NRIC / Passport</h5></div>
+                        <div class="col-md-8"><h5><%= application.user.nric_passport %></h5></div>
+                      </div>
+                    </div>
+                    <div class="card-header">
+                      <div class="row">
+                        <div class="col-md-11"><h3>Qualifications</h3></div>
+                      </div>
+                    </div>
+                    <div class="card-body">
+                      <% application.user.qualifications.each do |qualification| %>
+                          <div class="row">
+                            <div class="col-md-8">
+                              <h4><%= qualification.paper.exam %> <%= qualification.paper.name %></h4>
+                            </div>
+                            <div class="col-md-4">
+                              <h4>Grade : <%= qualification.grade %></h4>
+                            </div>
+                          </div>
+                        <hr>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <li class="list-group-item">
+          <div class="row">
+            <div class="col-md-9">
+              <h3><%= link_to application.course.name, course_path(application.course.id), method: :get %></h3>
+            </div>
+            <div class="col-md-2">
+              <% if application.approved? %>
+                <h3 class="text-success text-left"><%= application.status %></h3>
+              <% elsif application.denied?%>
+                <h3 class="text-danger text-left"><%= application.status %></h3>
+              <% else %>
+                <h3 class="text-warning text-left"><%= application.status %></h3>
+              <% end %>
+
+            </div>
+          </div>
+          <h5><%= link_to application.course.university.name, university_path(application.course.university.id), method: :get %></h5>
+          <h6><%= application.course.intake %> intake <br></h6>
+          <tr>
+            <% if current_user.student? %>
+              <td><%= link_to 'Remove', application_path(application), :method => :delete, data: { confirm: 'Are you sure?' } %></td>
+            <% elsif current_user.university_admin? %>
+              <td><a href="" class="" data-toggle="modal" data-target="#modal<%= application.id %>">View Applicant</a></td>
+              <td><%= link_to 'Approve', approve_path(id: application.id) %></td>
+              <td><%= link_to 'Deny', deny_path(id: application.id) %></td>
+            <% else %>
+              <td><a href="" class="" data-toggle="modal" data-target="#modal<%= application.id %>">View Applicant</a></td>
+            <% end %>
+          </tr>
+        </li>
+      <% end %>
+    <% end %>
+  </ul>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function(){
+        $("#search-input").on("keyup", function() {
+            let value = $(this).val().toLowerCase();
+            $("#list-informathon li").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>

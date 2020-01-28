@@ -1,0 +1,24 @@
+<%= form_with(model: paper, local: true) do |form| %>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">New Paper</h4>
+      </div>
+      <div id="c_form-h" class="m-3">
+        <div class="form-group row"> <label for="inputmailh" class="col-2 col-form-label">Name</label>
+          <div class="col-10">
+            <%= form.text_field :name, class:"form-control", id:"name", placeholder:"Enter paper name"%>
+          </div>
+        </div>
+        <div class="form-group row"> <label for="inputpasswordh" class="col-2 col-form-label">Exam</label>
+          <div class="col-10">
+            <%= form.select(:exam, Paper.exams.keys.map {|exam| [exam, exam]}, {}, {:class => "form-control"}) %>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <%= submit_tag "Submit", class:"btn btn-default modal-title w-100 font-weight-bold" %>
+      </div>
+    </div>
+  </div>
+<% end %>

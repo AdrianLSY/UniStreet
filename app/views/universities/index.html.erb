@@ -1,0 +1,47 @@
+<div class="modal fade" id="modalUni" tabindex="0" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document" style="max-width: 50%">
+    <div class="">
+      <%= render :template => 'universities/new' %>
+    </div>
+  </div>
+</div>
+<div class="container mt-3">
+  <div class="row">
+    <div class="element1 col-md-3">
+      <h3>All Universities</h3>
+    </div>
+    <div class="element2 col-md-3">
+      <% if current_user && current_user.sas_admin? %>
+        <h4><a href="" class="" data-toggle="modal" data-target="#modalUni">New University</a></h4>
+      <% end %>
+    </div>
+  </div>
+  <input class="form-control" id="search-input" type="text" placeholder="Search..">
+  <br>
+  <ul class="list-group" id="list-informathon">
+    <% @universities.each do |university| %>
+      <li class="list-group-item">
+        <h3><%= link_to university.name, university_path(university.id), method: :get %></h3>
+        <% if current_user && current_user.sas_admin? %>
+          <tr>
+            <td><%= link_to 'Edit', edit_university_path(university) %></td>
+            <td><%= link_to 'Delete', university_path(university), :method => :delete %></td>
+          </tr>
+        <% end %>
+      </li>
+    <% end %>
+
+  </ul>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+
+    $(document).ready(function(){
+        $("#search-input").on("keyup", function() {
+            let value = $(this).val().toLowerCase();
+            $("#list-informathon li").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>

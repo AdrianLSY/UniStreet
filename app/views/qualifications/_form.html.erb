@@ -1,0 +1,43 @@
+<%= form_with(model: qualification, local: true) do |form| %>
+    <div class="field">
+      <%= form.hidden_field :user_id, :value => current_user.id %>
+    </div>
+
+    <div class="field">
+      <%= form.hidden_field :course_id, :value => params[:course_id]%>
+    </div>
+    <div class="modal-dialog" role="document">
+      <div class="modal-content" style="">
+        <div class="modal-header text-center">
+          <h4 class="modal-title w-100 font-weight-bold">New Qualification</h4>
+        </div>
+        <div id="c_form-h" class="m-3">
+          <% if qualification.errors.any? %>
+            <div id="error_explanation">
+              <h2><%= pluralize(qualification.errors.count, "error") %> prohibited this qualification from being saved:</h2>
+
+              <ul>
+                <% qualification.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+          <div class="form-group row"> <label for="inputmailh" class="col-2 col-form-label">Paper</label>
+            <div class="col-10">
+              <%= form.collection_select :paper_id, Paper.order(:exam), :id, :exam_with_name, {include_blank: true}, {class:"form-control"} %>
+            </div>
+          </div>
+          <div class="form-group row"> <label for="inputmailh" class="col-2 col-form-label">Grade</label>
+            <div class="col-10">
+              <%= form.select(:grade, Qualification.grades.keys.map {|grade| [grade, grade]}, {}, {:class => "form-control"}) %>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer d-flex justify-content-center">
+          <%= form.submit "Submit", class:"btn btn-default modal-title w-100 font-weight-bold" %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+

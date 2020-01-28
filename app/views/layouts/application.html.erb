@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>UniversityStreet_</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css">
+  <link rel="stylesheet" href="https://static.pingendo.com/bootstrap/bootstrap-4.3.1.css">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</head>
+
+<body >
+<% if action_name != "new" && action_name != "create" %>
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <div class="container"> <button class="navbar-toggler navbar-toggler-right border-0" type="button" data-toggle="collapse" data-target="#navbar12">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+      <div class="collapse navbar-collapse" id="navbar12"> <a class="navbar-brand d-none d-md-block" href="#">
+        <i class="fa d-inline fa-lg fa-circle"></i>
+        <b onclick="window.location.href='<%= root_path %>'"> UniversityStreet_</b>
+      </a>
+        <ul class="navbar-nav mx-auto">
+          <li class="nav-item"> <a class="nav-link" href="<%= universities_path %>">Universities</a> </li>
+          <li class="nav-item"> <a class="nav-link" href="<%= courses_path %>">Courses</a> </li>
+          <li class="nav-item"> <a class="nav-link" href="<%= applications_path %>">Application</a></li>
+          <% if current_user && current_user.sas_admin? %>
+            <li class="nav-item"> <a class="nav-link text-primary" href="<%= users_path %>">Users</a></li>
+            <li class="nav-item"> <a class="nav-link text-primary" href="<%= papers_path %>">Papers</a></li>
+          <% end %>
+        </ul>
+        <ul class="navbar-nav">
+          <% if current_user %>
+            <li class="nav-item"> <a class="nav-link text-primary" href="<%= user_path(current_user.id)%>">Account</a> </li>
+            <li class="nav-item"> <a class="nav-link" href="<%= logout_path %>">Sign Out</a></li>
+          <% else %>
+            <div class="modal fade" id="modalLogin" tabindex="0" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="" id="loginPost">
+                </div>
+              </div>
+            </div>
+            <div class="modal fade" id="modalRegister" tabindex="0" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="" id="registerPost">
+                </div>
+              </div>
+            </div>
+            <li class="nav-item"> <a href="" class="nav-link text-primary" data-toggle="modal" data-target="#modalLogin">Login</a></li>
+            <li class="nav-item"> <a href="" class="nav-link" data-toggle="modal" data-target="#modalRegister">Register</a></li>
+            <script type="text/javascript" charset="utf-8">
+                function ajax(path, element) {
+                    let request = new XMLHttpRequest();
+                    request.onreadystatechange = function() {
+                        if (this.readyState == 4 && this.status == 200) {
+                            document.getElementById(element).innerHTML = this.responseText;
+                        }
+                    };
+                    request.open("GET", path, true);
+                    request.send();
+                }
+                ajax('/login', 'loginPost');
+                ajax('/register', 'registerPost')
+            </script>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </nav>
+<% end %>
+
+<div class="pos-f-t">
+  <div class="collapse" id="navbarToggleExternalContent">
+    <div class="bg-dark p-4">
+      <h5 class="text-white h4">Collapsed content</h5>
+      <span class="text-muted">Toggleable via the navbar brand.</span>
+    </div>
+  </div>
+  <% if flash[:notice] %>
+    <p class="navbar bg-success font-weight-bold" style="margin :0; padding-top:5px !important; padding-bottom:5px">
+      <%= flash[:notice] %>
+    </p>
+  <% end %>
+
+  <% if flash[:error] %>
+    <p class="navbar bg-danger font-weight-bold" style="margin :0; padding-top:5px !important; padding-bottom:5px">
+      <%= flash[:error] %>
+    </p>
+  <% end %>
+</div>
+<%= yield %>
+</div>
+<% if action_name != "new" && action_name != "create" %>
+  <div class="py-3">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 col-6 p-3"> <i class="d-block fa fa-circle-o fa-5x text-primary"></i> </div>
+        <div class="col-lg-4 col-6 p-3">
+          <p> <a href="https://www.reddit.com/r/softwaregore/" target="_blank"> Adrian Low - B1600329 <br>adrianlow1998@gmail.com</a> </p>
+          <p> <a href="https://goo.gl/maps/AUq7b9W7yYJ2" target="_blank"> Edison - B1702473 <br>edisontan78@gmail.com</a> </p>
+          <p class="mb-0"> Help University IT Mini Project - DIP1MPR01</p>
+        </div>
+        <div class="col-md-4 p-3">
+          <h5> <b>About</b> </h5>
+          <p class="mb-0"> I am alone, and feel the charm of existence in this spot, which was created for the bliss of souls like mine. I am so happy, my dear friend, so absorbed in the exquisite sense of mere tranquil existence.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+</body>
+
+</html>

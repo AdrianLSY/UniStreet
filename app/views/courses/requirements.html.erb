@@ -1,0 +1,35 @@
+<%= form_with(model: qualification, local: true) do |form| %>
+  <% if qualification.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(qualification.errors.count, "error") %> prohibited this qualification from being saved:</h2>
+
+      <ul>
+      <% qualification.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.hidden_field :user_id, :value => current_user.id%>
+  </div>
+
+  <div class="field">
+    <%= form.hidden_field :course_id, :value => params(:course_id)%>
+  </div>
+
+  <div class="field">
+    <%= form.label :Paper %>
+    <%= form.collection_select :paper_id, Paper.order(:name), :id, :exam_with_name, include_blank: true %>
+  </div>
+
+  <div class="field">
+    <%= form.label :grade %>
+    <%= form.select(:grade, Qualification.grades.keys.map {|grade| [grade, grade]}) %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

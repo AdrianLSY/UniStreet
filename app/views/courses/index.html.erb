@@ -1,0 +1,101 @@
+<div class="modal fade" id="modalCourse" tabindex="0" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document" style="max-width: 50%">
+      <%= render :template => 'courses/new' %>
+  </div>
+</div>
+<div class="container mt-3">
+  <div class="row">
+    <div class="element1 col-md-3">
+      <h3>Available Courses</h3>
+    </div>
+    <div class="element2 col-md-3">
+      <% if current_user && current_user.sas_admin? %>
+        <h4><a href="" class="" data-toggle="modal" data-target="#modalCourse">New Course</a></h4>
+      <% end %>
+    </div>
+  </div>
+  <input class="form-control" id="search-input" type="text" placeholder="Search..">
+  <br>
+  <ul class="list-group" id="list-informathon">
+    <% if @courses.empty? %>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card text-center">
+              <div class="card-body">
+                <h5 class="card-title">No available courses found</h5>
+                <p class="card-text">We are unable to find available courses with your qualifications</p>
+                <p class="card-text">Navigate to your account to add your exam grades</p>
+                <p class="card-text">You can view your Application on the applications page</p>
+                <% if current_user %>
+                  <%= link_to 'Your Account', user_path(id: current_user.id), method: :get, class: "btn btn-outline-primary"%>
+                  <%= link_to 'Your Applications', applications_path, method: :get, class: "btn btn-outline-primary"%>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% else %>
+      <% @courses.each do |course| %>
+        <div class="modal fade" id="modal<%= course.id %>" tabindex="0" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document" style="max-width: 50%">
+            <div class=" p-3 p-md-5 text-white rounded bg-primary">
+              <div class="row">
+                <div class="col-md-7">
+                  <h1><%= course.university.name %></h1>
+                  <br>
+                  <h5><%= course.university.description %></h5>
+                </div>
+                <div class="col-md-1"></div>
+                <div class="col-md-4">
+                  <h5>Address</h5>
+                  <h6><%= course.university.address %></h6>
+                  <br>
+                  <h5>Landline</h5>
+                  <h6><%= course.university.phone %></h6>
+                  <br>
+                  <h5>E-mail</h5>
+                  <h6><%= course.university.email %></h6>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <li class="list-group-item">
+          <div class="row">
+            <div class="col-md-10">
+              <h3><%= course.name %></h3>
+            </div>
+            <div class="col-md-1">
+              <% if current_user && current_user.student? %>
+                <%= link_to 'Apply', new_application_path(course_id: course.id), method: :get, class: "btn btn-outline-primary"%>
+              <% end %>
+            </div>
+          </div>
+          <h5><a href="" class="" data-toggle="modal" data-target="#modal<%= course.id %>"><%= course.university.name %></a></h5>
+          <p class="col-md-8"><%= course.description %></p>
+          <h6><%= course.intake %> intake <b><%= course.status %></b><br></h6>
+          <% if current_user && current_user.sas_admin? %>
+            <tr>
+              <td><%= link_to 'Edit', edit_course_path(course) %></td>
+              <td><%= link_to 'Complete', complete_path(id: course.id)%></td>
+              <td><%= link_to 'Delete', course_path(course), :method => :delete %></td>
+            </tr>
+          <% end %>
+        </li>
+      <% end %>
+    <% end %>
+  </ul>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+    $(document).ready(function(){
+        $("#search-input").on("keyup", function() {
+            let value = $(this).val().toLowerCase();
+            $("#list-informathon li").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>

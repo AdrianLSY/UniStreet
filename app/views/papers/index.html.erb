@@ -1,0 +1,42 @@
+<div class="modal fade" id="modalPaper" tabindex="0" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document" style="max-width: 50%">
+    <div class="">
+      <%= render :template => 'papers/new' %>
+    </div>
+  </div>
+</div>
+<div class="container mt-3">
+  <div class="row">
+    <div class="element1 col-md-3">
+      <h3>All Papers</h3>
+    </div>
+    <div class="element2 col-md-3">
+      <h4><a href="" class="" data-toggle="modal" data-target="#modalPaper">New Paper</a></h4>
+    </div>
+  </div>
+  <input class="form-control" id="search-input" type="text" placeholder="Search..">
+  <br>
+  <ul class="list-group" id="list-informathon">
+    <% @papers.each do |paper| %>
+      <li class="list-group-item">
+        <h3><%= paper.exam %> : <%= paper.name %></h3>
+        <tr>
+          <td><%= link_to 'Edit', edit_paper_path(paper) %></td>
+          <td><%= link_to 'Delete', paper_path(paper), :method => :delete %></td>
+        </tr>
+      </li>
+    <% end %>
+  </ul>
+</div>
+
+<script type="text/javascript" charset="utf-8">
+
+    $(document).ready(function(){
+        $("#search-input").on("keyup", function() {
+            let value = $(this).val().toLowerCase();
+            $("#list-informathon li").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>

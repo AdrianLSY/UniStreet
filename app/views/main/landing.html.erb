@@ -1,0 +1,57 @@
+<div class="py-5 text-center align-items-center d-flex" style="background-image: linear-gradient(to left bottom, rgba(189, 195, 199, .75), rgba(44, 62, 80, .75)); background-size: 100%;">
+  <div class="container py-5">
+    <div class="row">
+      <div class="col-md-8 mx-auto"> <i class="d-block fa fa-stop-circle mb-3 text-muted fa-5x"></i>
+        <h1 class="display-3 mb-4">Discover Opportunities</h1>
+        <p class="lead mb-5" style="line-height: 30px">Enroll in new and exciting courses across Malaysia easily and effortlessly through our intuitive application form builder and get accepted within minutes</p>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-10">
+        <h1 class="mb-3">Getting started...</h1>
+        <hr>
+        <div class="row">
+          <div class="col-md-8 p-3">
+            <h3>Step 1</h3>
+            <h5 class=mb-5">Create an account</h5>
+          </div>
+          <% if current_user %>
+            <div class="col-md-4 align-items-center d-flex justify-content-center p-3">
+              <a class="btn btn-outline-primary btn-lg btn-block">Already Logged in</a>
+            </div>
+          <% else %>
+            <div class="col-md-4 align-items-center d-flex justify-content-center p-3">
+              <a class="btn btn-outline-primary btn-lg btn-block" href="/register">Create an account</a>
+            </div>
+          <% end %>
+          <div class="col-md-8 p-3">
+            <h3>Step 2</h3>
+            <h5 class=mb-5">Enter you SPM or IGCSE results</h5>
+          </div>
+          <div class="col-md-4 align-items-center d-flex justify-content-center p-3">
+            <a class="btn btn-outline-primary btn-lg btn-block" href="/qualifications">Add Qualifications</a>
+          </div>
+          <div class="col-md-8 p-3">
+            <h3>Step 3</h3>
+            <h5 class=mb-5">Apply for available courses based on your exam results</h5>
+          </div>
+          <div class="col-md-4 align-items-center d-flex justify-content-center p-3">
+            <a class="btn btn-outline-primary btn-lg btn-block" href="/courses">View Courses</a>
+          </div>
+          <div class="col-md-8 p-3">
+            <h3>Step 4</h3>
+            <h5 class=mb-5">Monitor all your application status</h5>
+          </div>
+          <div class="col-md-4 align-items-center d-flex justify-content-center p-3">
+            <a class="btn btn-outline-primary btn-lg btn-block" href="/applications">View Applications</a>
+          </div>
+        </div>
+        <hr>
+      </div>
+    </div>
+  </div>
+</div>

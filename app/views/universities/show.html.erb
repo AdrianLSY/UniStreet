@@ -1,0 +1,48 @@
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12" >
+      <div class=" p-3 p-md-5 text-white rounded bg-primary">
+        <div class="row">
+          <div class="col-md-7">
+            <h1><%= @university.name %></h1>
+            <br>
+            <h5><%= @university.description %></h5>
+          </div>
+          <div class="col-md-1"></div>
+          <div class="col-md-4">
+            <h5>Address</h5>
+            <h6><%= @university.address %></h6>
+            <br>
+            <h5>Landline</h5>
+            <h6><%= @university.phone %></h6>
+            <br>
+            <h5>E-mail</h5>
+            <h6><%= @university.email %></h6>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container mt-3">
+  <div class="row">
+    <div class="element1 col-md-4">
+      <h3>Available Courses</h3>
+    </div>
+  </div>
+  <input class="form-control" id="search-input" type="text" placeholder="Search..">
+  <br>
+  <% if not @university.courses.nil? %>
+    <ul class="list-group" id="list-informathon">
+      <% @university.courses.each do |course| %>
+        <li class="list-group-item">
+          <h3><%= link_to course.name, course_path(course.id), method: :get %></h3>
+          <h5><%= link_to course.university.name, university_path(course.university.id), method: :get %></h5><br>
+          <p class="col-md-8"><%= course.description %></p>
+          <h6><%= course.intake %> intake<br></h6>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>

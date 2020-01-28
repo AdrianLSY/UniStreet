@@ -1,0 +1,24 @@
+<%= form_tag sessions_path do |form| %>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Sign in</h4>
+      </div>
+      <div id="c_form-h" class="m-3">
+        <div class="form-group row"> <label for="inputmailh" class="col-2 col-form-label">E-mail</label>
+          <div class="col-10">
+            <%= text_field_tag :email, "", class:"form-control", id:"inputmailh", placeholder:"mail@example.com"%>
+          </div>
+        </div>
+        <div class="form-group row"> <label for="inputpasswordh" class="col-2 col-form-label">Password</label>
+          <div class="col-10">
+            <%= password_field_tag :password, "", class:"form-control", id:"inputpasswordh", placeholder:"Password"%>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <%= submit_tag "Login", class:"btn btn-default modal-title w-100 font-weight-bold" %>
+      </div>
+    </div>
+  </div>
+<% end %>
